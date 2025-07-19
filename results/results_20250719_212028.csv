@@ -1,0 +1,21 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1752940230449,489,HTTP Request(get access token),200,OK,No_of_user_count 1-1,text,true,,972,341,1,1,https://accounts.spotify.com/api/token,489,0,323
+1752940231004,279,HTTP Request Owl City,200,OK,No_of_user_count 1-1,text,true,,1517,313,1,1,https://api.spotify.com/v1/artists/07QEuhtrNmmZ0zEcqE9SF6,279,0,87
+1752940231343,253,HTTP Request (Owl City's album checker),200,OK,No_of_user_count 1-1,text,true,,21963,399,1,1,"https://api.spotify.com/v1/artists/07QEuhtrNmmZ0zEcqE9SF6/albums?include_groups=album,single,compilation,appears_on&market=ES&limit=20&offset=0",222,0,0
+1752940231623,308,HTTP Request (Owl City's top tracks),200,OK,No_of_user_count 1-1,text,true,,38412,324,2,2,https://api.spotify.com/v1/artists/07QEuhtrNmmZ0zEcqE9SF6/top-tracks,232,0,0
+1752940231759,247,HTTP Request(get access token),200,OK,No_of_user_count 1-2,text,true,,972,341,1,1,https://accounts.spotify.com/api/token,247,0,84
+1752940232008,267,HTTP Request Eminem,200,OK,No_of_user_count 1-2,text,true,,1532,313,1,1,https://api.spotify.com/v1/artists/7dGJo4pcD2V6oG8kP0tJRR,267,0,72
+1752940232277,207,HTTP Request (Eminem's album checker),200,OK,No_of_user_count 1-2,text,true,,21254,399,1,1,"https://api.spotify.com/v1/artists/7dGJo4pcD2V6oG8kP0tJRR/albums?include_groups=album,single,compilation,appears_on&market=ES&limit=20&offset=0",196,0,0
+1752940232488,215,HTTP Request (Eminem's top tracks),200,OK,No_of_user_count 1-2,text,true,,36772,324,1,1,https://api.spotify.com/v1/artists/7dGJo4pcD2V6oG8kP0tJRR/top-tracks,192,0,0
+1752940233761,234,HTTP Request(get access token),200,OK,No_of_user_count 1-3,text,true,,972,341,1,1,https://accounts.spotify.com/api/token,234,0,75
+1752940233997,275,HTTP Request Owl City,200,OK,No_of_user_count 1-3,text,true,,1517,313,1,1,https://api.spotify.com/v1/artists/07QEuhtrNmmZ0zEcqE9SF6,275,0,74
+1752940234274,228,HTTP Request (Owl City's album checker),200,OK,No_of_user_count 1-3,text,true,,21963,399,1,1,"https://api.spotify.com/v1/artists/07QEuhtrNmmZ0zEcqE9SF6/albums?include_groups=album,single,compilation,appears_on&market=ES&limit=20&offset=0",214,0,0
+1752940234504,326,HTTP Request (Owl City's top tracks),200,OK,No_of_user_count 1-3,text,true,,38412,324,1,1,https://api.spotify.com/v1/artists/07QEuhtrNmmZ0zEcqE9SF6/top-tracks,300,0,0
+1752940235754,244,HTTP Request(get access token),200,OK,No_of_user_count 1-4,text,true,,972,341,1,1,https://accounts.spotify.com/api/token,244,0,82
+1752940236000,268,HTTP Request Eminem,200,OK,No_of_user_count 1-4,text,true,,1532,313,1,1,https://api.spotify.com/v1/artists/7dGJo4pcD2V6oG8kP0tJRR,267,0,75
+1752940236269,262,HTTP Request (Eminem's album checker),200,OK,No_of_user_count 1-4,text,true,,21254,399,1,1,"https://api.spotify.com/v1/artists/7dGJo4pcD2V6oG8kP0tJRR/albums?include_groups=album,single,compilation,appears_on&market=ES&limit=20&offset=0",222,0,0
+1752940236539,213,HTTP Request (Eminem's top tracks),200,OK,No_of_user_count 1-4,text,true,,36772,324,1,1,https://api.spotify.com/v1/artists/7dGJo4pcD2V6oG8kP0tJRR/top-tracks,189,0,0
+1752940237754,235,HTTP Request(get access token),200,OK,No_of_user_count 1-5,text,true,,972,341,1,1,https://accounts.spotify.com/api/token,235,0,76
+1752940237991,243,HTTP Request Owl City,200,OK,No_of_user_count 1-5,text,true,,1517,313,1,1,https://api.spotify.com/v1/artists/07QEuhtrNmmZ0zEcqE9SF6,242,0,69
+1752940238236,258,HTTP Request (Owl City's album checker),200,OK,No_of_user_count 1-5,text,true,,21963,399,1,1,"https://api.spotify.com/v1/artists/07QEuhtrNmmZ0zEcqE9SF6/albums?include_groups=album,single,compilation,appears_on&market=ES&limit=20&offset=0",230,0,0
+1752940238496,232,HTTP Request (Owl City's top tracks),200,OK,No_of_user_count 1-5,text,true,,38412,324,1,1,https://api.spotify.com/v1/artists/07QEuhtrNmmZ0zEcqE9SF6/top-tracks,209,0,0
