@@ -12,12 +12,10 @@
           </elementProp>
         </collectionProp>
       </elementProp>
-      <boolProp name="TestPlan.functional_mode">false</boolProp>
-      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
     </TestPlan>
     <hashTree>
       <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="No_of_user_count">
-        <stringProp name="TestPlan.comments">Checks the number of user</stringProp>
+        <stringProp name="TestPlan.comments">For load testing</stringProp>
         <intProp name="ThreadGroup.num_threads">5</intProp>
         <intProp name="ThreadGroup.ramp_time">10</intProp>
         <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
@@ -28,7 +26,7 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP  Header Manager" enabled="true">
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP  Header Manager">
           <collectionProp name="HeaderManager.headers">
             <elementProp name="Authorization" elementType="Header">
               <stringProp name="Header.name">Authorization</stringProp>
@@ -38,7 +36,7 @@
           <stringProp name="TestPlan.comments">Global Access Token</stringProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request(get access token)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request(get access token)">
           <stringProp name="TestPlan.comments">Access token</stringProp>
           <stringProp name="HTTPSampler.domain">accounts.spotify.com</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -58,7 +56,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Authorization</stringProp>
@@ -69,9 +67,10 @@
                 <stringProp name="Header.value">application/x-www-form-urlencoded</stringProp>
               </elementProp>
             </collectionProp>
+            <stringProp name="TestPlan.comments">Authorization details</stringProp>
           </HeaderManager>
           <hashTree/>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
+          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
@@ -81,9 +80,10 @@ def creds = vars.get(&quot;client_id&quot;) + &quot;:&quot; + vars.get(&quot;cli
 def encoded = Base64.encoder.encodeToString(creds.getBytes(&quot;UTF-8&quot;))
 vars.put(&quot;encoded_auth&quot;, encoded)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="TestPlan.comments">Extract client id and secret</stringProp>
           </JSR223PreProcessor>
           <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
@@ -93,6 +93,7 @@ def response = prev.getResponseDataAsString()
 def json = new JsonSlurper().parseText(response)
 vars.put(&quot;access_token&quot;, json.access_token)</stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="TestPlan.comments">Extract authorisation from the payload</stringProp>
           </JSR223PostProcessor>
           <hashTree/>
         </hashTree>
@@ -100,9 +101,11 @@ vars.put(&quot;access_token&quot;, json.access_token)</stringProp>
           <boolProp name="displayJMeterProperties">false</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
           <boolProp name="displaySystemProperties">false</boolProp>
+          <stringProp name="TestPlan.comments">Used for debugging otherwise keep it disbaled</stringProp>
         </DebugSampler>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request ${artist}" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request ${artist}">
+          <stringProp name="TestPlan.comments">Simple Artist data checker</stringProp>
           <stringProp name="HTTPSampler.domain">api.spotify.com</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">/v1/artists/${artist_id}</stringProp>
@@ -115,24 +118,7 @@ vars.put(&quot;access_token&quot;, json.access_token)</stringProp>
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <JSR223PreProcessor guiclass="TestBeanGUI" testclass="JSR223PreProcessor" testname="JSR223 PreProcessor" enabled="true">
-            <stringProp name="scriptLanguage">groovy</stringProp>
-            <stringProp name="parameters"></stringProp>
-            <stringProp name="filename"></stringProp>
-            <stringProp name="cacheKey">true</stringProp>
-            <stringProp name="script">log.info(&quot;Bearer Token: &quot; + vars.get(&quot;access_token&quot;))</stringProp>
-          </JSR223PreProcessor>
-          <hashTree/>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP  Header Manager" enabled="true">
-            <collectionProp name="HeaderManager.headers">
-              <elementProp name="Authorization" elementType="Header">
-                <stringProp name="Header.name">Authorization</stringProp>
-                <stringProp name="Header.value">Bearer ${access_token}</stringProp>
-              </elementProp>
-            </collectionProp>
-          </HeaderManager>
-          <hashTree/>
-          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor" enabled="true">
+          <JSR223PostProcessor guiclass="TestBeanGUI" testclass="JSR223PostProcessor" testname="JSR223 PostProcessor">
             <stringProp name="cacheKey">true</stringProp>
             <stringProp name="filename"></stringProp>
             <stringProp name="parameters"></stringProp>
@@ -151,9 +137,10 @@ def artistName = json.name?.trim()
 vars.put(&quot;actual_name&quot;, artistName)
 </stringProp>
             <stringProp name="scriptLanguage">groovy</stringProp>
+            <stringProp name="TestPlan.comments">Extracts artist name</stringProp>
           </JSR223PostProcessor>
           <hashTree/>
-          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
@@ -166,15 +153,17 @@ if (actual == null || expected == null || !actual.contains(expected)) {
     AssertionResult.setFailureMessage(&quot;Artist name mismatch: expected &apos;${expected}&apos;, but got &apos;${actual}&apos;&quot;)
     log.warn(&quot;❌ Artist name mismatch: expected &apos;${expected}&apos;, but got &apos;${actual}&apos;&quot;)
 }</stringProp>
+            <stringProp name="TestPlan.comments">Checks if the user name we got is correct or not</stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion" enabled="true">
+          <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion">
             <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
             <stringProp name="SizeAssertion.size">2000</stringProp>
             <intProp name="SizeAssertion.operator">4</intProp>
+            <stringProp name="TestPlan.comments">Used for checking size</stringProp>
           </SizeAssertion>
           <hashTree/>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="false">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -209,9 +198,10 @@ if (actual == null || expected == null || !actual.contains(expected)) {
               </value>
             </objProp>
             <stringProp name="filename"></stringProp>
+            <stringProp name="TestPlan.comments">For checking artist&apos;s results can disable</stringProp>
           </ResultCollector>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion" enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
             </collectionProp>
@@ -219,9 +209,10 @@ if (actual == null || expected == null || !actual.contains(expected)) {
             <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="TestPlan.comments">Checks the response code</stringProp>
           </ResponseAssertion>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Message Assertion " enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Message Assertion ">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="2524">OK</stringProp>
             </collectionProp>
@@ -229,6 +220,7 @@ if (actual == null || expected == null || !actual.contains(expected)) {
             <stringProp name="Assertion.test_field">Assertion.response_message</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="TestPlan.comments">check the reponse message</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
@@ -236,9 +228,11 @@ if (actual == null || expected == null || !actual.contains(expected)) {
           <boolProp name="displayJMeterProperties">false</boolProp>
           <boolProp name="displayJMeterVariables">true</boolProp>
           <boolProp name="displaySystemProperties">false</boolProp>
+          <stringProp name="TestPlan.comments">for debugging purpose</stringProp>
         </DebugSampler>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request (${artist}&apos;s album checker)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request (${artist}&apos;s album checker)">
+          <stringProp name="TestPlan.comments">Checks the artist&apos;s album</stringProp>
           <stringProp name="HTTPSampler.domain">api.spotify.com</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">/v1/artists/${artist_id}/albums</stringProp>
@@ -280,7 +274,7 @@ if (actual == null || expected == null || !actual.contains(expected)) {
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -315,9 +309,10 @@ if (actual == null || expected == null || !actual.contains(expected)) {
               </value>
             </objProp>
             <stringProp name="filename"></stringProp>
+            <stringProp name="TestPlan.comments">For checking artist&apos;s album results can disable</stringProp>
           </ResultCollector>
           <hashTree/>
-          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
@@ -338,15 +333,17 @@ if (keyword1 == null || !body.contains(keyword1)|| !body.contains(keyword2)) {
     log.info(&quot;✅ Response contains expected keyword: &apos;${keyword1}&apos;&quot;)
 }
 </stringProp>
+            <stringProp name="TestPlan.comments">assertion for checking artist&apos;s album</stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion" enabled="true">
+          <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion">
             <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
             <stringProp name="SizeAssertion.size">200000</stringProp>
             <intProp name="SizeAssertion.operator">4</intProp>
+            <stringProp name="TestPlan.comments">Used for checking size</stringProp>
           </SizeAssertion>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion" enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
             </collectionProp>
@@ -354,9 +351,10 @@ if (keyword1 == null || !body.contains(keyword1)|| !body.contains(keyword2)) {
             <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="TestPlan.comments">Checks the response code</stringProp>
           </ResponseAssertion>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Message Assertion " enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Message Assertion ">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="2524">OK</stringProp>
             </collectionProp>
@@ -364,10 +362,12 @@ if (keyword1 == null || !body.contains(keyword1)|| !body.contains(keyword2)) {
             <stringProp name="Assertion.test_field">Assertion.response_message</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="TestPlan.comments">check the reponse message</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request (${artist}&apos;s top tracks)" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request (${artist}&apos;s top tracks)">
+          <stringProp name="TestPlan.comments">Checks the artist&apos;s top tracks</stringProp>
           <stringProp name="HTTPSampler.domain">api.spotify.com</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">/v1/artists/${artist_id}/top-tracks</stringProp>
@@ -380,7 +380,7 @@ if (keyword1 == null || !body.contains(keyword1)|| !body.contains(keyword2)) {
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
             <boolProp name="ResultCollector.error_logging">false</boolProp>
             <objProp>
               <name>saveConfig</name>
@@ -415,9 +415,10 @@ if (keyword1 == null || !body.contains(keyword1)|| !body.contains(keyword2)) {
               </value>
             </objProp>
             <stringProp name="filename"></stringProp>
+            <stringProp name="TestPlan.comments">For checking artist&apos;s top tracks results can disable</stringProp>
           </ResultCollector>
           <hashTree/>
-          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion" enabled="true">
+          <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion">
             <stringProp name="scriptLanguage">groovy</stringProp>
             <stringProp name="parameters"></stringProp>
             <stringProp name="filename"></stringProp>
@@ -437,15 +438,17 @@ if (keyword1 == null || !body.contains(keyword1)) {
     log.info(&quot;✅ Response contains expected keyword: &apos;${keyword1}&apos;&quot;)
 }
 </stringProp>
+            <stringProp name="TestPlan.comments">assertion for checking artist&apos;s top tracks</stringProp>
           </JSR223Assertion>
           <hashTree/>
-          <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion" enabled="true">
+          <SizeAssertion guiclass="SizeAssertionGui" testclass="SizeAssertion" testname="Size Assertion">
             <stringProp name="Assertion.test_field">SizeAssertion.response_network_size</stringProp>
             <stringProp name="SizeAssertion.size">200000</stringProp>
             <intProp name="SizeAssertion.operator">4</intProp>
+            <stringProp name="TestPlan.comments">Used for checking size</stringProp>
           </SizeAssertion>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion" enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Code Assertion">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="49586">200</stringProp>
             </collectionProp>
@@ -453,9 +456,10 @@ if (keyword1 == null || !body.contains(keyword1)) {
             <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">8</intProp>
+            <stringProp name="TestPlan.comments">Checks the response code</stringProp>
           </ResponseAssertion>
           <hashTree/>
-          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Message Assertion " enabled="true">
+          <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Message Assertion ">
             <collectionProp name="Asserion.test_strings">
               <stringProp name="2524">OK</stringProp>
             </collectionProp>
@@ -463,10 +467,11 @@ if (keyword1 == null || !body.contains(keyword1)) {
             <stringProp name="Assertion.test_field">Assertion.response_message</stringProp>
             <boolProp name="Assertion.assume_success">false</boolProp>
             <intProp name="Assertion.test_type">16</intProp>
+            <stringProp name="TestPlan.comments">check the reponse message</stringProp>
           </ResponseAssertion>
           <hashTree/>
         </hashTree>
-        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true">
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -501,9 +506,10 @@ if (keyword1 == null || !body.contains(keyword1)) {
             </value>
           </objProp>
           <stringProp name="filename"></stringProp>
+          <stringProp name="TestPlan.comments">Report</stringProp>
         </ResultCollector>
         <hashTree/>
-        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
           <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
@@ -538,6 +544,7 @@ if (keyword1 == null || !body.contains(keyword1)) {
             </value>
           </objProp>
           <stringProp name="filename"></stringProp>
+          <stringProp name="TestPlan.comments">Tree Report</stringProp>
         </ResultCollector>
         <hashTree/>
       </hashTree>
@@ -564,7 +571,7 @@ if (keyword1 == null || !body.contains(keyword1)) {
         <stringProp name="shareMode">shareMode.all</stringProp>
         <boolProp name="stopThread">false</boolProp>
         <stringProp name="variableNames"></stringProp>
-        <stringProp name="TestPlan.comments">CSV File</stringProp>
+        <stringProp name="TestPlan.comments">Artist Data CSV File</stringProp>
       </CSVDataSet>
       <hashTree/>
     </hashTree>
